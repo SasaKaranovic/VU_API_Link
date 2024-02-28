@@ -1,0 +1,96 @@
+
+        <!-- Page header -->
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  API Link
+                </div>
+                <h2 class="page-title">
+                  Images
+                </h2>
+              </div>
+              <!-- Page title actions -->
+              <div class="col-auto ms-auto d-print-none">
+                <div class="btn-list">
+                  <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#uploadImageModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 9l5 -5l5 5" /><path d="M12 4l0 12" /></svg>
+                    Upload image
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="row row-deck row-cards" id="existing-links">
+
+<!--  -->
+
+<div class="col-3" id="empty-card" style="display:none;">
+<div class="card ">
+<div class="card-body">
+<h3 class="card-title">Img directory is empty</h3>
+<div class="text-secondary card-description">
+There are no images.<br>Maybe try <a href="#" data-bs-toggle="modal" data-bs-target="#uploadImageModal">uploading</a> some?
+</div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+
+<!-- Add new config modal -->
+<div class="modal modal-blur fade" id="uploadImageModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Upload new dial image</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+            <div class="mb-3">
+              <label class="form-label">File name</label>
+              <input type="text" class="form-control" id="modal-upload-image-name" name="modal-upload-image-name" placeholder="Image name eg. `faceplate-next-launch`" maxlength="30">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Image file</label>
+              <input type="file" class="form-control" id="modal-upload-image-file" name="modal-upload-image-name" accept=".png" />
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+              Cancel
+            </a>
+            <a href="#" class="btn btn-primary ms-auto" id="modal-upload-image-send">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-upload" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 9l5 -5l5 5" /><path d="M12 4l0 12" /></svg>
+              Upload image
+            </a>
+          </div>
+        </div>
+      </div>
+</div> <!-- end create modal -->
+
+
+
+<script src="assets/js/vu_link_images.js" defer></script>
+
+
+<!-- Tabler Core -->
+<script src="assets/js/tabler.js" defer></script>
+<script src="assets/js/demo.min.js" defer></script>
+<!-- <script src="assets/js/jquery.min.js" defer></script> -->
+<script src="assets/js/vu_link_api.js" defer></script>
