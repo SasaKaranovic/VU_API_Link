@@ -1,0 +1,64 @@
+
+        <!-- Page header -->
+        <div class="page-header d-print-none">
+          <div class="container-xl">
+            <div class="row g-2 align-items-center">
+              <div class="col">
+                <!-- Page pre-title -->
+                <div class="page-pretitle">
+                  API Link
+                </div>
+                <h2 class="page-title">
+                  Info
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Page body -->
+        <div class="page-body">
+          <div class="container-xl">
+            <div class="row row-deck row-cards" id="existing-links">
+
+<!--  -->
+
+<div class="col-12">
+<div class="card ">
+<div class="card-body">
+<h3 class="card-title">What is API Link?</h3>
+<div class="text-secondary card-description">
+An application programming interface (API) is a way for two or more computer programs or components to communicate with each other.<br><br>
+
+By design API will only respond to a requst and it will never initiate a request.<br>
+So let's say for example that we want to pull some information from a remote API and show it on our VU dials.<br><br>
+The remote API will wait for a request before it responds with data.<br>
+Also the VU Server API will wait for a request before it updates VU dials.<br>
+But neither of them will make the first request... so it's a stalemate.<br><br>
+
+Enter API link!<br>
+This is a very simple application that allows you to create a link between remote API and VU Server API.<br>
+It does this by allowing you to create a 'link' file.
+This file describes which API/URL to poll, how often, and what is the data that we want passed to VU Server.<br><br>
+
+Also the remote API might provide data that is not directly consumeable by the VU server.<br>
+To address this API Link allows you to modify the data before passing it to VU Server.<br>
+This is done by using 'modifiers'.<br>
+As the name implies, modifiers allow you to modify the value before it's sent to VU Server.<br>
+
+</div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+
+<!-- Tabler Core -->
+<script src="assets/js/tabler.js" defer></script>
+<script src="assets/js/demo.min.js" defer></script>
+<!-- <script src="assets/js/jquery.min.js" defer></script> -->
+<script src="assets/js/vu_link_api.js" defer></script>
