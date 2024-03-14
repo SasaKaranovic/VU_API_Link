@@ -61,7 +61,6 @@ class FileSystem:
 
         # Create required directories and files
         self._create_default_directories()
-        self._create_empty_config_file()
 
     def _get_user_directory(self):
         # Linux
@@ -122,19 +121,6 @@ class FileSystem:
         os.makedirs(self.get_links_folder_path(), exist_ok=True)
         os.makedirs(self.get_link_images_folder_path(), exist_ok=True)
 
-    def _create_empty_config_file(self):
-        if not os.path.isfile(self.get_config_file_path()):
-            with open(self.get_config_file_path(), 'w', encoding='utf-8') as f:
-                f.write('server:\n')
-                f.write('  hostname: localhost\n')
-                f.write('  port: 5340\n')
-                f.write('  communication_timeout: 10\n')
-                f.write('  dial_update_period: 200\n')
-                f.write('  master_key: cTpAWYuRpA2zx75Yh961Cg\n')
-                f.write('\n')
-                f.write('hardware:\n')
-                f.write('  port: \n')
-                f.write('\n')
     def get_image_list(self):
         ret = []
         images = os.listdir(self.get_link_images_folder_path())
@@ -156,9 +142,6 @@ class FileSystem:
 
     def get_link_images_folder_path(self):
         return os.path.join(self.get_links_folder_path(), 'images')
-
-    def get_config_file_path(self):
-        return os.path.join(self.base_path, 'config.yaml')
 
     def get_upload_directory_path(self):
         return os.path.join(self.base_path, 'upload')
