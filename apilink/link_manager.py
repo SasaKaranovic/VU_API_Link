@@ -124,8 +124,11 @@ class LinkManager:
         return False
 
     def create_link(self, filename, content):
-        if self._link_exists(filename):
-            logger.error(f"Link `{filename}` already exists!")
+        filename = filename.replace('.toml', '')
+        filename = f'{filename}.toml'
+
+        if self._link_exists(f'{filename}.toml'):
+            logger.error(f"Link `{filename}.toml` already exists!")
             return False
 
         # Test file_name
@@ -149,6 +152,8 @@ class LinkManager:
         return True
 
     def update_link(self, filename, content):
+        filename = filename.replace('.toml', '')
+        filename = f'{filename}.toml'
         if not self._link_exists(filename):
             logger.error(f"Link `{filename}` does not exist!")
             return False
