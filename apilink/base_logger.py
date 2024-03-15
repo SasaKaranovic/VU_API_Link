@@ -67,21 +67,23 @@ def set_logger_level(level='info'):
         logger.setLevel(logging.INFO)
         logger.info("Logging level: INFO")
 
-# Basic logger setup
-log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
-logFile = VU_FileSystem.get_log_file_path()
-
-os.makedirs(os.path.dirname(logFile), exist_ok=True)
-log_file_handler = RotatingFileHandler(logFile, mode='a', maxBytes=1*1024*1024, backupCount=2, encoding=None, delay=0)
-log_file_handler.setLevel(logging.DEBUG)
-log_file_handler.setFormatter(log_formatter)
-
-# Shared stdout logger
 logger = logging.getLogger('kr_api_link_root')
-logger.setLevel(logging.INFO)
-logger.addHandler(log_file_handler)
-logger.setLevel(logging.INFO)
-logger.propagate = False
-handler = logging.StreamHandler(stream=sys.stderr)
-handler.setFormatter(default_formatter())
-logger.addHandler(handler)
+# If logger has no handlers, create default ones
+if not logger.handlers:
+    # Basic logger setup
+    log_formatter = logging.Formatter('%(asctime)s %(levelname)s %(funcName)s(%(lineno)d) %(message)s')
+    logFile = VU_FileSystem.get_log_file_path()
+
+    os.makedirs(os.path.dirname(logFile), exist_ok=True)
+    log_file_handler = RotatingFileHandler(logFile, mode='a', maxBytes=1*1024*1024, backupCount=2, encoding=None, delay=0)
+    log_file_handler.setLevel(logging.DEBUG)
+    log_file_handler.setFormatter(log_formatter)
+
+    # Shared stdout logger
+    logger.setLevel(logging.INFO)
+    logger.addHandler(log_file_handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    handler = logging.StreamHandler(stream=sys.stderr)
+    handler.setFormatter(default_formatter())
+    logger.addHandler(handler)
