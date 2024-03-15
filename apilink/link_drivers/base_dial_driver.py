@@ -26,7 +26,6 @@ class DialDriver:
         return f"http://{self.vu_host}:{self.vu_port}/api/v0/dial/{self.vu_dial_uid}/{handler}?key={self.vu_api_key}{url_parameters}"
 
     async def _update_value(self):
-        self.percent = int(self.percent)
         response = await self.http_client.fetch(self._make_url('set', {'value': self.percent}), method='GET', request_timeout=10)
         if response.code == 200:
             self.current_percent = self.percent
@@ -45,9 +44,11 @@ class DialDriver:
                                                     'blue': self.backlight['blue']
                                                 }),
                                                 method='GET', request_timeout=10)
-        if response.code in (200, 201):
-            self.current_percent = self.percent
+        if response.code  == 201:
             logger.debug(f"Dial `{self.vu_dial_uid}` backlight updated to R:{self.backlight['red']} G:{self.backlight['green']} B:{self.backlight['blue']}")
+            return True
+        if response.code  == 200:
+            logger.debug(f"Dial `{self.vu_dial_uid}` backlight is already at R:{self.backlight['red']} G:{self.backlight['green']} B:{self.backlight['blue']}")
             return True
         logger.error(f"Failed to update dial `{self.vu_dial_uid}` backlight. Server status code {response.code}")
         return False
@@ -79,7 +80,7 @@ class DialDriver:
 
     def _recalculate_backlight(self):
         if self.backlight_map is None:
-            return
+            return False
 
         # Then as we cross threshold, use that color
         for value, rgb in self.backlight_map.items():
@@ -87,9 +88,10 @@ class DialDriver:
                 self.backlight['red'] = int(rgb[0])
                 self.backlight['green'] = int(rgb[1])
                 self.backlight['blue'] = int(rgb[2])
+        return True
 
     def set_dial_value(self, percent):
-        self.percent = percent
+        self.percent = int(percent)
 
     def set_dial_image(self, image):
         self.image = image
@@ -111,11 +113,11 @@ class DialDriver:
                 return response
 
             # Update backlight
-            self._recalculate_backlight()
-            response = await self._update_backlight()
-            if not response:
-                logger.error("Failed to update dial backlight!")
-                return response
+            if self._recalculate_backlight():
+                response = await self._update_backlight()
+                if not response:
+                    logger.error("Failed to update dial backlight!")
+                    return response
 
             # Update image
             response = self._update_image()

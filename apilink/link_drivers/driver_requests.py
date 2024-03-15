@@ -28,17 +28,16 @@ class Driver_Requests(BaseLinkDriver):
                 logger.error(f"API:'{self.cfg['api']['url']}' Item:'{self.cfg['api']['item']}')")
                 return False
 
-            # 2. Update value
+            # 0. API value
             logger.debug(f"API value: {self.api_value}")
-            self.set_dial_value(self.api_value)
 
-            # 3. Run modifiers (if required)
+            # 1. Run modifiers (if required)
             self.apply_modifiers()
 
-            # 4. Update dial value
+            # 2. Update dial value
             self.set_dial_value(self.api_value)
 
-            # 5. Propagate changes by calling .update() on dial driver
+            # 3. Propagate changes by calling .update() on dial driver
             logger.debug(f"Final value: {self.api_value}")
             await self.dial_driver.update()
 
