@@ -12,6 +12,10 @@ on:
       - "apilink/upload/**"
       - ".github/workflows/pyinstaller.yaml"
 
+defaults:
+  run:
+    working-directory: apilink
+
 jobs:
   Installer:
 
@@ -45,7 +49,7 @@ jobs:
 
     # PyInstaller
     - name: Run PyInstaller
-      working-directory: ${{ github.workspace }}/apilink
+      working-directory: apilink
       run: >
         pyinstaller.exe --name API_LINK
         --distpath="${{ github.workspace }}/Artifacts/dist"
