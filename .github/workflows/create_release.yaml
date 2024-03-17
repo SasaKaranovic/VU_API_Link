@@ -65,14 +65,14 @@ jobs:
       uses: thedoctor0/zip-release@0.7.5
       with:
         type: 'zip'
-        path: VUServer
+        path: VU-API-Link
         directory: ${{ github.workspace }}\Artifacts
         filename: 'VU-API-Link.zip'
 
     - name: Release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "${{ github.workspace }}\\Artifacts\\VUServer.zip"
+        artifacts: "${{ github.workspace }}\\Artifacts\\VU-API-Link.zip"
         body: "Draft release"
         draft: true
         allowUpdates: true
