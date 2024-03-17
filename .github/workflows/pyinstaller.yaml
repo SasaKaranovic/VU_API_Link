@@ -54,8 +54,8 @@ jobs:
         pyinstaller.exe --name API_LINK
         --distpath="${{ github.workspace }}/Artifacts/dist"
         --clean
-        --path="${{ github.workspace }}"
-        --icon="www/favicon.ico"
+        --path="${{ github.workspace }}/apilink"
+        --icon="installer/inc/icon.ico"
         --add-data="www/assets/css/*;www/assets/css"
         --add-data="www/assets/img/*;www/assets/img"
         --add-data="www/assets/js/*;www/assets/js"
