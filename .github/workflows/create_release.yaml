@@ -41,7 +41,7 @@ jobs:
 
     - name: Add version stamp
       run: |
-        python3 ${{ github.workspace }}/make_version.py
+        python3 ${{ github.workspace }}/apilink/make_version.py
 
     # PyInstaller
     - run: >
