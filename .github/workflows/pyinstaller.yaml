@@ -45,8 +45,8 @@ jobs:
 
     # PyInstaller
     - name: Run PyInstaller
+      working-directory: ${{ github.workspace }}/apilink
       run: >
-        cd apilink &&
         pyinstaller.exe --name API_LINK
         --distpath="${{ github.workspace }}/Artifacts/dist"
         --clean
