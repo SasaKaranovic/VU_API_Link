@@ -155,5 +155,4 @@ if __name__ == '__main__':
     print(vfs.get_www_folder_path())
     print(vfs.get_log_file_path())
     print(vfs.get_links_folder_path())
-    print(vfs.get_config_file_path())
     print(vfs.get_upload_directory_path())

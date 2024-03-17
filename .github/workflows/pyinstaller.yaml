@@ -12,6 +12,10 @@ on:
       - "apilink/upload/**"
       - ".github/workflows/pyinstaller.yaml"
 
+defaults:
+  run:
+    working-directory: apilink
+
 jobs:
   Installer:
 
@@ -19,7 +23,6 @@ jobs:
 
     env:
       App_Packages_Archive: API_LINK
-      Actions_Allow_Unsecure_Commands: true # Allows AddPAth and SetEnv commands
 
     steps:
     - uses: actions/checkout@v4
@@ -30,7 +33,7 @@ jobs:
         cache: 'pip' # caching pip dependencies
 
     # Install python requirements
-    - run: pip install -r apilink/requirements.txt
+    - run: pip install -r requirements.txt
 
     # Create artifacts folder
     - name: Create Artifact Folder
@@ -46,13 +49,13 @@ jobs:
 
     # PyInstaller
     - name: Run PyInstaller
+      working-directory: apilink
       run: >
-        cd apilink &&
         pyinstaller.exe --name API_LINK
         --distpath="${{ github.workspace }}/Artifacts/dist"
         --clean
-        --path="${{ github.workspace }}"
-        --icon="www/favicon.ico"
+        --path="${{ github.workspace }}/apilink"
+        --icon="installer/inc/icon.ico"
         --add-data="www/assets/css/*;www/assets/css"
         --add-data="www/assets/img/*;www/assets/img"
         --add-data="www/assets/js/*;www/assets/js"
@@ -60,8 +63,6 @@ jobs:
         --add-data="www/*.png;www/"
         --add-data="www/*.html;www/"
         --add-data="www/*.ico;www/"
-        --hiddenimport="pywin32"
-        --hiddenimport="win32timezone"
         --uac-admin
         --noconsole
         server.py
@@ -74,20 +75,19 @@ jobs:
         path: ${{ github.workspace }}/Artifacts/dist/API_LINK/*
       if: ${{ always() }}
 
-    # Install NSIS
-    - name: Install NSIS
-      run: |
-        choco install nsis
+    ## Install NSIS
+    #- name: Install NSIS
+    #  run: |
+    #    choco install nsis
+    #
+    #- name: Create installer
+    #  run: |
+    #    makensis /DINSTALLEROUTPUT="${{ github.workspace }}\Artifacts\api_link_installer.exe" /DDIRDIST="${{ github.workspace }}\Artifacts\dist\API_LINK" /DDIRSOURCE="${{ github.workspace }}\apilink\" ${{ github.workspace }}\apilink\installer\install.nsi
 
-    - name: Create installer
-      run: |
-        makensis /DINSTALLEROUTPUT="${{ github.workspace }}\Artifacts\api_link_installer.exe" /DDIRDIST="${{ github.workspace }}\Artifacts\dist\API_LINK" /DDIRSOURCE="${{ github.workspace }}\apilink\" ${{ github.workspace }}\apilink\installer\install.nsi
-
-
-    # Upload installer
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ env.App_Packages_Archive }}_installer.exe
-        path: ${{ github.workspace }}/Artifacts/api_link_installer.exe
-      if: ${{ always() }}
+    ## Upload installer
+    #- name: Upload build artifact
+    #  uses: actions/upload-artifact@v3
+    #  with:
+    #    name: ${{ env.App_Packages_Archive }}_installer.exe
+    #    path: ${{ github.workspace }}/Artifacts/api_link_installer.exe
+    #  if: ${{ always() }}
