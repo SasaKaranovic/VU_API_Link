@@ -1,4 +1,5 @@
 import time
+import random
 from datetime import datetime as dt
 from apilink.base_logger import logger
 
@@ -107,3 +108,9 @@ class ValueModifiers:
             logger.error(f"str_datetime_delta failure: {e}")
 
         return 0
+
+    def random_value(self, **kwargs):
+        start = kwargs['args'].get('min', 0)
+        stop = kwargs['args'].get('max', 100)
+
+        return random.randint(start, stop)
